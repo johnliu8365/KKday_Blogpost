@@ -10,4 +10,8 @@ class Photo extends Model
     protected $fillable = [
         'file'
     ];
+
+    public function post(){
+        return $this->belongsTo('App\Post');
+    }
 }

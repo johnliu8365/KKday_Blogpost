@@ -50,7 +50,7 @@ class PostController extends Controller
                 ['file' => $name]
             );
             Storage::put(
-                'photo/'.$photo->id.'.jpg',
+                'public/photo/'.$photo->id.'.jpg',
                 file_get_contents($request->file('photo')->getRealPath())
             );
             $input['photo_id'] = $photo->id;

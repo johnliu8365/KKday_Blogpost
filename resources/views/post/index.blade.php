@@ -8,6 +8,7 @@
                 <thead>
                     <tr>
                     <th scope="col"></th>
+                    <th scope="col">圖片</th>
                     <th scope="col">姓名</th>
                     <th scope="col">標題</th>
                     <th scope="col">內容</th>
@@ -18,6 +19,11 @@
                     @foreach ($posts as $post)
                         <tr>
                             <th scope="row">{{ $post->id }}</th>
+                            <td>
+                                @if($post->photo_id)
+                                    <img height="50" src = "{{ asset('photo/'.$post->photo_id.'.jpg') }}" alt="{{ $post->photo_id }}">
+                                @endif
+                            </td>
                             <td>{{ $post->user->name }}</td>
                             <td>{{ $post->title }}</td>
                             <td>{{ strip_tags($post->body) }}</td>
