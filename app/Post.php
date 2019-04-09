@@ -8,8 +8,15 @@ class Post extends Model
 {
     //
     protected $fillable = [
+        'user_id',
         'photo_id',
         'title',
         'body'
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
+    protected $table = 'post';
 }

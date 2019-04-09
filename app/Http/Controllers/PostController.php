@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        return view('post.index', ['posts' => Post::all()]);
     }
 
     /**
@@ -41,13 +41,11 @@ class PostController extends Controller
         //
         $input = $request->all();
         $user = Auth::user();
+        $input['user_id'] = $user->id;
 
-        //var_dump($input);
-        //var_dump($user);
-
-        //$user->post()->create($input);
+        Post::create($input);
         return redirect('/');
-    }
+        }
 
     /**
      * Display the specified resource.
