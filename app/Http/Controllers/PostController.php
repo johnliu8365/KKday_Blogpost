@@ -49,6 +49,7 @@ class PostController extends Controller
             $photo = Photo::create(
                 ['file' => $name]
             );
+            //檢查檔案type 記錄使用者操作時的log json
             Storage::put(
                 'public/photo/'.$photo->id.'.jpg',
                 file_get_contents($request->file('photo')->getRealPath())
