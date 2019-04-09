@@ -26,7 +26,6 @@ class PostController extends Controller
      */
     public function create()
     {
-        //$categories = Category::lists('name', 'id')->all();
         return view('post.create');
     }
 
@@ -44,7 +43,7 @@ class PostController extends Controller
         $input['user_id'] = $user->id;
 
         Post::create($input);
-        return redirect('/');
+        return redirect('/post');
         }
 
     /**
@@ -56,6 +55,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //
+        var_dump($post);
     }
 
     /**
@@ -90,5 +90,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        Post::destroy($post->id);
+        return redirect('/post');
     }
 }

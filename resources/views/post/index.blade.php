@@ -26,9 +26,11 @@
                                     <button onclick="location.href='{{ route('post.edit', $post->id) }}'" class='btn btn-primary'>
                                         編輯
                                     </button>
-                                    <button onclick="location.href='{{ route('post.destroy', $post->id) }}'" class='btn btn-danger'>
-                                        刪除
-                                    </button>
+                                    <form action="{{ route('post.destroy', $post->id) }}" method="POST" style="display:inline;">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class='btn btn-danger'>刪除</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
