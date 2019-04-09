@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
 use App\Post;
+use App\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +43,18 @@ class PostController extends Controller
         $input = $request->all();
         $user = Auth::user();
         $input['user_id'] = $user->id;
+
+        if($file = $request->file('photo')) {
+            $name = $file->getClientOriginalName();
+            $photo = Photo::create(
+                ['file' => $name]
+            );
+            Storage::put(
+                'photo/'.$photo->id.'.jpg',
+                file_get_contents($request->file('photo')->getRealPath())
+            );
+            $input['photo_id'] = $photo->id;
+        }
 
         Post::create($input);
         return redirect('/post');
