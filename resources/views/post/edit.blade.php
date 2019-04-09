@@ -9,30 +9,31 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-primary text-white">建立留言</div>
+                <div class="card-header bg-primary text-white">編輯留言</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('post.store') }}">
+                    <form action="{{ route('post.update', $posts->id) }}" method="POST">
+                        @method('PATCH')
                         @csrf
 
                         <div class="form-group row">
                             <label for="titlw" class="col-md-2 col-form-label text-md-right">標題</label>
                             <div class="col-md-9">
-                                <input id="title" type="text" class="form-control" name="title" required>
+                                <input id="title" type="text" class="form-control" name="title" value="{{ $posts->title }}" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="titlw" class="col-md-2 col-form-label text-md-right">內容</label>
                             <div class="col-md-9">
-                                <textarea id="body" name="body"></textarea>
+                                <textarea id="body" name="body">{{ $posts->body }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-5">
                                 <button type="submit" class="btn btn-primary">
-                                    建立留言
+                                    編輯留言
                                 </button>
                             </div>
                         </div>

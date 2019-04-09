@@ -20,7 +20,7 @@
                             <th scope="row">{{ $post->id }}</th>
                             <td>{{ $post->user->name }}</td>
                             <td>{{ $post->title }}</td>
-                            <td>{{ $post->body }}</td>
+                            <td>{{ strip_tags($post->body) }}</td>
                             <td>
                                 @if(Auth::user()->id == $post->user_id)
                                     <button onclick="location.href='{{ route('post.edit', $post->id) }}'" class='btn btn-primary'>

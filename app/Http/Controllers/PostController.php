@@ -67,6 +67,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        return view('post.edit', ['posts' => Post::find($post->id)]);
     }
 
     /**
@@ -79,6 +80,9 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         //
+        $input = $request->only(['title', 'body']);
+        Post::where('id', $post->id)->update($input);
+        return redirect('/post');
     }
 
     /**
