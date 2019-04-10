@@ -19,13 +19,18 @@
                     <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data">
                         @csrf
 
+                        @php
+                            $old_input = Session::get('_old_input');
+                        @endphp
+
                         <div class="form-group row">
                             <label for="titlw" class="col-md-2 col-form-label text-md-right">標題</label>
                             <div class="col-md-9">
-                                <input id="title" type="text" class="form-control" name="title" required>
+                                <input id="title" type="text" class="form-control" name="title"
+                                    value="{{ $old_input ? $old_input['title'] : '' }}"
+                                required>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label for="titlw" class="col-md-2 col-form-label text-md-right">圖片</label>
                             <div class="input-group col-md-9">
@@ -33,13 +38,24 @@
                                   <input type="file" class="custom-file-input" id="photo" name="photo">
                                   <label class="custom-file-label" for="photo">請選擇圖片</label>
                                 </div>
-                              </div>
+                            </div>
+                            @if (count($errors) > 0)
+                                <label for="titlw" class="col-md-3 col-form-label text-md-right"></label>
+                                    <div class="alert alert-danger">
+                                        <strong>Whoops!</strong> There were some problems with your input.
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                            @endif
                         </div>
 
                         <div class="form-group row">
                             <label for="titlw" class="col-md-2 col-form-label text-md-right">內容</label>
                             <div class="col-md-9">
-                                <textarea id="body" name="body"></textarea>
+                                <textarea id="body" name="body">{{ $old_input ? $old_input['body'] : '' }}</textarea>
                             </div>
                         </div>
 

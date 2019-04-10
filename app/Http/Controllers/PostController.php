@@ -46,10 +46,20 @@ class PostController extends Controller
 
         if($file = $request->file('photo')) {
             $name = $file->getClientOriginalName();
+
+            $this->validate($request, [
+                'photo' => 'mimes:jpeg,png,bmp |max:4096',
+            ],
+                $messages = [
+                    'required' => 'The :attribute field is required.',
+                    'mimes' => 'Only jpeg and png photo are allowed.'
+                ]
+            );
+
             $photo = Photo::create(
                 ['file' => $name]
             );
-            //檢查檔案type 記錄使用者操作時的log json
+
             Storage::put(
                 'public/photo/'.$photo->id.'.jpg',
                 file_get_contents($request->file('photo')->getRealPath())
@@ -99,6 +109,16 @@ class PostController extends Controller
 
         if($file = $request->file('photo')) {
             $name = $file->getClientOriginalName();
+
+            $this->validate($request, [
+                'photo' => 'mimes:jpeg,png,bmp |max:4096',
+            ],
+                $messages = [
+                    'required' => 'The :attribute field is required.',
+                    'mimes' => 'Only jpeg and png photo are allowed.'
+                ]
+            );
+
             $photo = Photo::create(
                 ['file' => $name]
             );
@@ -111,7 +131,7 @@ class PostController extends Controller
 
         Post::where('id', $post->id)->update($input);
 
-        if($file = $request->file('photo')) {
+        if($request->file('photo')) {
             if($post->photo_id !== null) {
                 Photo::destroy($post->photo_id);
                 Storage::delete('public/photo/'.$post->photo_id.'.jpg');
