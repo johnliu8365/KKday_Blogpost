@@ -96,7 +96,28 @@ class PostController extends Controller
     {
         //
         $input = $request->only(['title', 'body']);
+
+        if($file = $request->file('photo')) {
+            $name = $file->getClientOriginalName();
+            $photo = Photo::create(
+                ['file' => $name]
+            );
+            Storage::put(
+                'public/photo/'.$photo->id.'.jpg',
+                file_get_contents($request->file('photo')->getRealPath())
+            );
+            $input['photo_id'] = $photo->id;
+        }
+
         Post::where('id', $post->id)->update($input);
+
+        if($file = $request->file('photo')) {
+            if($post->photo_id !== null) {
+                Photo::destroy($post->photo_id);
+                Storage::delete('public/photo/'.$post->photo_id.'.jpg');
+            }
+        }
+
         return redirect('/post');
     }
 
@@ -110,6 +131,10 @@ class PostController extends Controller
     {
         //
         Post::destroy($post->id);
+        if($post->photo_id !== null) {
+            Photo::destroy($post->photo_id);
+            Storage::delete('public/photo/'.$post->photo_id.'.jpg');
+        }
         return redirect('/post');
     }
 }
