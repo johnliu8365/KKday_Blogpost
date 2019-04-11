@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', 'api'])->group(function() {
     Route::resource('post', 'PostController');
 });
 
