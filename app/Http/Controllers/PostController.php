@@ -80,7 +80,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //
-        var_dump($post);
+        return view('post.show', ['posts' => Post::find($post->id)]);
     }
 
     /**

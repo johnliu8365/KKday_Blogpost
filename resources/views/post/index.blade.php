@@ -26,8 +26,12 @@
                             </td>
                             <td>{{ $post->user->name }}</td>
                             <td>{{ $post->title }}</td>
-                            <td>{{ strip_tags($post->body) }}</td>
+                            <td>{!! $post->body !!}</td>
                             <td>
+                                <button onclick="location.href='{{ route('post.show', $post->id) }}'" class='btn btn-success'>
+                                    檢視
+                                </button>
+
                                 @if(Auth::user()->id == $post->user_id)
                                     <button onclick="location.href='{{ route('post.edit', $post->id) }}'" class='btn btn-primary'>
                                         編輯
