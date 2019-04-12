@@ -38,7 +38,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            // 'throttle:60,1',  ->改透過 nginx 或其他機制去做限制
             'bindings',
             \App\Http\Middleware\ApiDataLogger::class,
         ],

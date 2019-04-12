@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'api'])->group(function() {
+    Route::get('/password/edit', 'UserController@editPassword')->name('editPassword');
+    Route::post('/password/update', 'UserController@updatePassword')->name('updatePassword');
     Route::resource('post', 'PostController');
 });
 
